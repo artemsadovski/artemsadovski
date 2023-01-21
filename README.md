@@ -8,7 +8,7 @@
 <a target="_blank" href="mailto:sadovski.art@gmail.com">
   <img align="left" alt="Gmail" width="80px" src="https://www.vectorlogo.zone/logos/gmail/gmail-ar21.svg"/>
 </a>
-<a target="_blank" href="https://www.linkedin.com/in/aliaksandr-bilyk-62a571234">
+<a target="_blank" href="https://www.linkedin.com/in/%D0%B0%D1%80%D1%82%D1%91%D0%BC-%D1%81%D0%B0%D0%B4%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9-963574228/">
   <img align="left" alt="LinkdeIN" width="80px" src="https://www.vectorlogo.zone/logos/linkedin/linkedin-ar21.svg"/>
 </a>
 </br>
