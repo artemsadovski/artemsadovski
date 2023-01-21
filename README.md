@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 <h1>
   <div id="header" align="center">
-    <img src="https://i.gifer.com/kkL.gif" width="200 height="200"/>
+    <div style="padding-top:194.332%;position:relative;"><iframe src="https://gifer.com/embed/kkL" width="100%" height="100%" style='position:absolute;top:0;left:0;' frameBorder="0" allowFullScreen></iframe></div><p><a href="https://gifer.com"></a></p>
   </div>
 </h1>
 <h2 style="color:rgb(255, 152, 152);">&#128102; Обо мне</h2>
