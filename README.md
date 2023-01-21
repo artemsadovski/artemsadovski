@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 <h1>
   <div id="header" align="center">
-    <img src="https://media.tenor.com/Gx-UhiiSPDAAAAAC/fehlerhaft-fehler.gif" width="200" height="400"/>
+    <img src="https://media.tenor.com/7x1_TZA-tlEAAAAd/computer.gif" width="500" height="400"/>
   </div>
 </h1>
 <h2 style="color:rgb(255, 152, 152);">&#128102; Обо мне</h2>
@@ -17,14 +17,13 @@
 
 <p>I’m working as a QA Engineer &#128104;&#8205;&#128187;</p>
 
-<h3 style="color:rgb(255, 152, 152);" title = "Link to my CV on russian and english from Google Drive">&#128221; CV</h3>
+<h3 style="color:rgb(255, 152, 152);" title = "Ссылка на резюме">&#128221; CV</h3>
   <b>
-    <a href="https://drive.google.com/file/d/1l1xZScs_WicDL2eA3PKGutQoHomZFv6g/view?usp=sharing" target="_blank">Russian</a>/
-    <a href="https://drive.google.com/file/d/12Xs1J6-aRQVxviksVfLWOE6cNR7H34xt/view?usp=sharing" target="_blank">English</a>
+    <a href="https://drive.google.com/file/d/1l1xZScs_WicDL2eA3PKGutQoHomZFv6g/view?usp=sharing" target="_blank">Russian</a>
   </b>
 <hr>
 
-<h3 style="color:rgb(255, 152, 152);">&#128195; Testing documentation</h3>
+<h3 style="color:rgb(255, 152, 152);">&#128195; Тестовая документация</h3>
 <div>
 <a href="https://github.com/bors4/postman" target="_self"><p title = "Postman Collections">Postman Collections</p></a>
 <a href="https://github.com/bors4/sql"  target="_self"><p title = "SQL queries">SQL queries</p></a>
@@ -35,17 +34,18 @@
 <hr>
 <div>
   
-  ### 🛠 &nbsp;Languages and Tools :
+  ###  &#128295; Инструменты:
   
   <p>
   <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" title="Postman"  alt="Postman" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/git/git-original-wordmark.svg" title="Git" **alt="Git" width="40" height="40"/>&nbsp;
-  <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/mongodb/mongodb.png" title="MongoDB" **alt="MongoDB" width="60" height="60"/>&nbsp;
+  <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/mongodb/mongodb.png" title="MongoDB" **alt="MongoDB" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/jira/jira-original-wordmark.svg" title="Jira" **alt="Jira" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/linux/linux-original.svg" title="Linux" **alt="Linux" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/oracle/oracle-original.svg" title="Oracle" **alt="Oracle" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/mysql/mysql-original-wordmark.svg" title="MySQL"  alt="MySQL" width="40" height="40"/>&nbsp;
   <img src="https://www.vectorlogo.zone/logos/virtualbox/virtualbox-icon.svg" title="VirtualBox" **alt="VirtualBox" width="40" height="40"/>&nbsp;
+  <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/postgresql/postgresql.png" title="VirtualBox" **alt="VirtualBox" width="40" height="40"/>&nbsp;
   </p>
 
   ---
