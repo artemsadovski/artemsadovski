@@ -1,11 +1,11 @@
 <a name="readme-top"></a>
 <h1>
   <div id="header" align="center">
-    <img src="https://media.tenor.com/2uyENRmiUt0AAAAC/coding.gif" width="500" height="200"/>
+    <img src="https://i.gifer.com/kkL.gif" width="200 height="200"/>
   </div>
 </h1>
-<h2 style="color:rgb(255, 152, 152);">&#128102; About Me</h2>
-<a target="_blank" href="mailto:sasha.belik89@gmail.com">
+<h2 style="color:rgb(255, 152, 152);">&#128102; Обо мне</h2>
+<a target="_blank" href="mailto:sadovski.art@gmail.com">
   <img align="left" alt="Gmail" width="80px" src="https://www.vectorlogo.zone/logos/gmail/gmail-ar21.svg"/>
 </a>
 <a target="_blank" href="https://www.linkedin.com/in/aliaksandr-bilyk-62a571234">
@@ -17,7 +17,7 @@
 
 <p>I’m working as a QA Engineer &#128104;&#8205;&#128187;</p>
 
-<h3 style="color:rgb(255, 152, 152);" title = "Link to my CV on russian and english from Google Drive">&#128221; My CV</h3>
+<h3 style="color:rgb(255, 152, 152);" title = "Link to my CV on russian and english from Google Drive">&#128221; CV</h3>
   <b>
     <a href="https://drive.google.com/file/d/1l1xZScs_WicDL2eA3PKGutQoHomZFv6g/view?usp=sharing" target="_blank">Russian</a>/
     <a href="https://drive.google.com/file/d/12Xs1J6-aRQVxviksVfLWOE6cNR7H34xt/view?usp=sharing" target="_blank">English</a>
