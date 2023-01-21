@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 <h1>
   <div id="header" align="center">
-    <img src="https://media.tenor.com/2uyENRmiUt0AAAAC/coding.gif" width="200" height="200"/>
+    <img src="https://media.tenor.com/Gx-UhiiSPDAAAAAC/fehlerhaft-fehler.gif" width="200" height="200"/>
   </div>
 </h1>
 <h2 style="color:rgb(255, 152, 152);">&#128102; Обо мне</h2>
