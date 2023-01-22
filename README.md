@@ -20,9 +20,9 @@
 
 
 ### &#128104;&#8205; Обо мне:
--  I’m currently learning **Web3, GameDev**
--  I regularly write articles on [Medium](medium-link)
--  Мой опыт [CV](cv-link)
+-  Более 6 лет опыта работы инженером по тестированию программного обеспечения в гибкой среде разработки приложений.
+-  Главная цель - делать свою работу качественно.
+-  Мой опыт [CV](cv-link).
 
 ---
 
@@ -50,6 +50,9 @@
   <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/postgresql/postgresql.png" title="PostgresSQL" **alt="PostgresSQL" width="40" height="40"/>&nbsp;
   <img src="https://www.logo.wine/a/logo/Confluence_(software)/Confluence_(software)-Logo.wine.svg" title="Confluence" **alt="Confluence" width="40" height="40"/>&nbsp;
   <img src="https://user-images.githubusercontent.com/37912316/38108076-0b5f8ae0-3394-11e8-8e6c-60247537dfad.png" title="SoapUI" **alt="SoapUI" width="40" height="40"/>&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original-wordmark.svg" title="Android Studio" **alt="Android Studio" width="40" height="40"/>&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" title="Grafana" **alt="Grafana" width="40" height="40"/>&nbsp;
+  <img src="https://media.gurock.com/gk-media/logos/testrail-logo-blue-with-tagline.svg" title="Testrail" **alt="Testrail" width="40" height="40"/>&nbsp;
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" title="Jenkins" **alt="Jenkins" width="40" height="40"/>&nbsp;
 
   </p>
