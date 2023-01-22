@@ -15,6 +15,9 @@
 		<img src="https://img.shields.io/badge/Telegram-blue?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram"/>
 	</a>
 </div>
+<div id="view" align="center"><img src="https://komarev.com/ghpvc/?username=your-github-artemsadovski&style=flat-square&color=blue" alt=""/>
+</div>
+
 </h1>
 <h2 style="color:rgb(255, 152, 152);">&#128102; Обо мне</h2>
 <a target="_blank" href="mailto:sadovski.art@gmail.com">
