@@ -59,8 +59,7 @@
 ---
 
 ### :fire: Статистика:
-
-  [![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=your-github-artemsadovski&theme=dark&background=000000)](https://git.io/streak-stats)
+  [![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=artemsadovski&theme=dark&background=000000)](https://git.io/streak-stats)
 
   ---
   
