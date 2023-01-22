@@ -22,7 +22,7 @@
 ### &#128104;&#8205; Обо мне:
 -  Более 6 лет опыта работы инженером по тестированию программного обеспечения в гибкой среде разработки приложений.
 -  Главная цель - делать свою работу качественно.
--  Мой опыт [CV](https://drive.google.com/file/d/1JPMr_MOglaYp7i45Y4ySKIw6HLMOELYg/view?usp=share_link).
+-  [CV](https://drive.google.com/file/d/1JPMr_MOglaYp7i45Y4ySKIw6HLMOELYg/view?usp=share_link).
 
 ---
 
@@ -31,12 +31,18 @@
 -  [Чек-лист]()
 -  [Тест-кейс]()
 -  [Баг-репорт]()
+
+
+---
+
+### &#128221; Примеры:
+
 -  [Postman Collections](medium-link)
 -  [SQL](cv-link)
 
+---
 
-  
-  ### &#128296; Инструменты:
+### &#128296; Инструменты:
   
   <p>
   <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" title="Postman"  alt="Postman" width="40" height="40"/>&nbsp;
