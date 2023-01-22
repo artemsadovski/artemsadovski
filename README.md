@@ -54,8 +54,13 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" title="Grafana" **alt="Grafana" width="40" height="40"/>&nbsp;
   <img src="https://media.gurock.com/gk-media/logos/testrail-logo-blue-with-tagline.svg" title="Testrail" **alt="Testrail" width="40" height="40"/>&nbsp;
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" title="Jenkins" **alt="Jenkins" width="40" height="40"/>&nbsp;
-
   </p>
+
+---
+
+### :fire: Статистика:
+
+  [![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=your-github-artemsadovski&theme=dark&background=000000)](https://git.io/streak-stats)
 
   ---
   
