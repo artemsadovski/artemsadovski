@@ -22,23 +22,24 @@
 ### &#128104;&#8205; Обо мне:
 -  Более 6 лет опыта работы инженером по тестированию программного обеспечения в гибкой среде разработки приложений.
 -  Главная цель - делать свою работу качественно.
--  [CV](https://drive.google.com/file/d/1JPMr_MOglaYp7i45Y4ySKIw6HLMOELYg/view?usp=share_link).
+-  [CV](https://drive.google.com/file/d/15NKA4AeT_0PccqG1B31HGD0jhVOtU_A9/view?usp=share_link).
 
 ---
 
 ### &#128221; Тестовая документация:
 
--  [Чек-лист]()
--  [Тест-кейс]()
--  [Баг-репорт]()
+-  [Тест-кейс](https://docs.google.com/spreadsheets/d/1HyIG-MEm4TnZrRft1PLIf8VC8thytZHI-jgUc2zGmfA/edit#gid=1809591433)
+-  [Баг-репорт](https://docs.google.com/spreadsheets/d/1dMLuAddlPE1wjozAgdkym6ljs0brjMkcDhwOUjnOvJ8/edit#gid=0)
 
 
 ---
 
 ### &#128221; Примеры:
 
--  [Postman Collections](medium-link)
+-  [Postman Collections](https://drive.google.com/file/d/15NKA4AeT_0PccqG1B31HGD0jhVOtU_A9/view?usp=share_link)
+-  [Postman Inviroment](https://drive.google.com/file/d/1BIgh7hhszKZG64YdPHwjgGC2fZabaTR5/view?usp=share_link)
 -  [SQL](cv-link)
+
 
 ---
 
