@@ -22,7 +22,7 @@
 ### &#128104;&#8205; Обо мне:
 -  Более 6 лет опыта работы инженером по тестированию программного обеспечения в гибкой среде разработки приложений.
 -  Главная цель - делать свою работу качественно.
--  [CV](https://drive.google.com/file/d/1V-YVgd2mAB_BRRQi7Ebb0khzX4hfFEnD/view?usp=share_link).
+-  [CV](https://drive.google.com/file/d/1FIu1odmcEp8S0XIbVTzgAl_bz-TW1mlB/view?usp=share_link).
 
 ---
 
