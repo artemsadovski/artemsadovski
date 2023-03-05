@@ -37,7 +37,7 @@
 ### &#128221; Примеры:
 
 -  [Postman Collections](https://drive.google.com/file/d/18aBxGu1c8cnwgJ8ZmOUAiOuOTuEOgqIO/view?usp=share_link)
--  [Postman Inviroment](https://drive.google.com/file/d/1BIgh7hhszKZG64YdPHwjgGC2fZabaTR5/view?usp=share_link)
+-  [Postman Enviroment](https://drive.google.com/file/d/1BIgh7hhszKZG64YdPHwjgGC2fZabaTR5/view?usp=share_link)
 -  [SQL](cv-link)
 
 
