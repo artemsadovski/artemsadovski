@@ -1,0 +1,3917 @@
+{
+	"info": {
+		"_postman_id": "eeaf7f95-b3c5-4c42-b240-61699f099cfa",
+		"name": "Api testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16048825"
+	},
+	"item": [
+		{
+			"name": "companies",
+			"item": [
+				{
+					"name": "CompaniesDefaultRequest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Test status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Total companies\", function () {\r",
+									"pm.expect(Object.keys(pm.response.json().data).length).to.eql(pm.response.json().meta.limit)\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test total companies\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.meta.total).to.eql(7);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"data\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"company_id\": {\r",
+									"              \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"company_name\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"company_address\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"company_status\": {\r",
+									"              \"type\": \"string\",\r",
+									"              \"enum\": [ \"ACTIVE\", \"CLOSED\", \"BANKRUPT\" ]\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"company_id\",\r",
+									"            \"company_name\",\r",
+									"            \"company_address\",\r",
+									"            \"company_status\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    },\r",
+									"    \"meta\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"limit\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"offset\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"total\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"total\"\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"data\",\r",
+									"    \"meta\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test headers\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompaniesEnableSSL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Test status code is 301\", function () {\r",
+									"    pm.response.to.have.status(301);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.eql(\"https://send-request.me/api/companies/\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Request by http\", function() {\r",
+									"pm.expect(pm.request.url.protocol).to.eql(\"http\")\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": true,
+						"followRedirects": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL_not_tls}}/api/companies/",
+							"host": [
+								"{{baseURL_not_tls}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompaniesWithLimitAndOffset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Total companies\", function () {\r",
+									"pm.expect(Object.keys(pm.response.json().data).length).to.eql(pm.response.json().meta.limit)\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.length).to.eql(5);\r",
+									"    pm.expect(jsonData.meta.limit).to.eql(5);\r",
+									"    pm.expect(jsonData.meta.offset).to.eql(2);\r",
+									"    pm.expect(jsonData.meta.total).to.eql(7);\r",
+									"    pm.expect(jsonData.data[0].company_id).to.eql(3);\r",
+									"});\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"data\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"company_id\": {\r",
+									"              \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"company_name\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"company_address\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"company_status\": {\r",
+									"              \"type\": \"string\",\r",
+									"              \"enum\": [ \"ACTIVE\", \"CLOSED\", \"BANKRUPT\" ]\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"company_id\",\r",
+									"            \"company_name\",\r",
+									"            \"company_address\",\r",
+									"            \"company_status\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    },\r",
+									"    \"meta\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"limit\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"offset\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"total\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"total\"\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"data\",\r",
+									"    \"meta\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/?limit=5&offset=2",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "offset",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompaniesWithStatusActive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Total companies\", function () {\r",
+									"pm.expect(Object.keys(pm.response.json().data).length).to.eql(pm.response.json().meta.limit)\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.meta.limit).to.eql(3);\r",
+									"    pm.expect(jsonData.meta.offset).to.eql(0);\r",
+									"    pm.expect(jsonData.meta.total).to.eql(3);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.length).to.eql(3);\r",
+									"    pm.expect(jsonData.data[0,1,2].company_status).to.eql(\"ACTIVE\");\r",
+									"    \r",
+									"});\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"data\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"company_id\": {\r",
+									"              \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"company_name\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"company_address\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"company_status\": {\r",
+									"              \"type\": \"string\",\r",
+									"              \"enum\": [ \"ACTIVE\"]\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"company_id\",\r",
+									"            \"company_name\",\r",
+									"            \"company_address\",\r",
+									"            \"company_status\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    },\r",
+									"    \"meta\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"limit\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"offset\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"total\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"total\"\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"data\",\r",
+									"    \"meta\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/?status=ACTIVE",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ACTIVE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompaniesWithStatusClosed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Total companies\", function () {\r",
+									"pm.expect(Object.keys(pm.response.json().data).length).to.eql(pm.response.json().meta.total)\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.meta.limit).to.eql(3);\r",
+									"    pm.expect(jsonData.meta.offset).to.eql(0);\r",
+									"    pm.expect(jsonData.meta.total).to.eql(2);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.length).to.eql(2);\r",
+									"    pm.expect(jsonData.data[0,1].company_status).to.eql(\"CLOSED\");\r",
+									"});\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"data\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"company_id\": {\r",
+									"              \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"company_name\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"company_address\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"company_status\": {\r",
+									"              \"type\": \"string\",\r",
+									"              \"enum\": [ \"ACTIVE\", \"CLOSED\", \"BANKRUPT\" ]\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"company_id\",\r",
+									"            \"company_name\",\r",
+									"            \"company_address\",\r",
+									"            \"company_status\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    },\r",
+									"    \"meta\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"limit\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"offset\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"total\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"total\"\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"data\",\r",
+									"    \"meta\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/?status=CLOSED",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "CLOSED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompaniesWithStatusBankrupt",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Total companies\", function () {\r",
+									"pm.expect(Object.keys(pm.response.json().data).length).to.eql(pm.response.json().meta.total)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.meta.limit).to.eql(3);\r",
+									"    pm.expect(jsonData.meta.offset).to.eql(0);\r",
+									"    pm.expect(jsonData.meta.total).to.eql(2);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.length).to.eql(2);\r",
+									"    pm.expect(jsonData.data[0,1].company_status).to.eql(\"BANKRUPT\");\r",
+									"});\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"data\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"company_id\": {\r",
+									"              \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"company_name\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"company_address\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"company_status\": {\r",
+									"              \"type\": \"string\",\r",
+									"              \"enum\": [ \"ACTIVE\", \"CLOSED\", \"BANKRUPT\" ]\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"company_id\",\r",
+									"            \"company_name\",\r",
+									"            \"company_address\",\r",
+									"            \"company_status\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    },\r",
+									"    \"meta\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"limit\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"offset\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"total\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"total\"\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"data\",\r",
+									"    \"meta\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/?status=BANKRUPT",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "BANKRUPT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompaniesWithInvQueryStatus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail[0].ctx.enum_values[0]).to.eql(\"ACTIVE\"); \r",
+									"    pm.expect(jsonData.detail[0].ctx.enum_values[1]).to.eql(\"BANKRUPT\"); \r",
+									"    pm.expect(jsonData.detail[0].ctx.enum_values[2]).to.eql(\"CLOSED\"); \r",
+									"    pm.expect(jsonData.detail[0].msg).to.eql(\"value is not a valid enumeration member; permitted: 'ACTIVE', 'BANKRUPT', 'CLOSED'\"); \r",
+									"    pm.expect(jsonData.detail[0].type).to.eql(\"type_error.enum\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[0]).to.eql(\"query\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[1]).to.eql(\"status\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"detail\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"loc\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": [\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                },\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                }\r",
+									"              ]\r",
+									"            },\r",
+									"            \"msg\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"type\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"loc\",\r",
+									"            \"msg\",\r",
+									"            \"type\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"detail\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/?status=ABC",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ABC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompaniesWithInvQueryLimit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    //приводим тело ответа к формату JSON\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.length).to.eql(7);\r",
+									"    pm.expect(jsonData.meta.limit).to.eql(-1);\r",
+									"    pm.expect(jsonData.meta.offset).to.eql(0);\r",
+									"    pm.expect(jsonData.meta.total).to.eql(7);\r",
+									"});\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"detail\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"loc\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": [\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                },\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                }\r",
+									"              ]\r",
+									"            },\r",
+									"            \"msg\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"type\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"loc\",\r",
+									"            \"msg\",\r",
+									"            \"type\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"detail\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/?limit=-1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "-1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompaniesWithStrQueryLimit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"detail\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"loc\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": [\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                },\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                }\r",
+									"              ]\r",
+									"            },\r",
+									"            \"msg\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"type\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"loc\",\r",
+									"            \"msg\",\r",
+									"            \"type\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"detail\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail[0].msg).to.eql(\"value is not a valid integer\"); \r",
+									"    pm.expect(jsonData.detail[0].type).to.eql(\"type_error.integer\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[0]).to.eql(\"query\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[1]).to.eql(\"limit\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/?limit=ABC",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "ABC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompaniesWithInvQueryOffset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Total companies\", function () {\r",
+									"pm.expect(Object.keys(pm.response.json().data).length).to.eql(pm.response.json().meta.limit)\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.length).to.eql(3);\r",
+									"    pm.expect(jsonData.meta.limit).to.eql(3);\r",
+									"    pm.expect(jsonData.meta.offset).to.eql(1);\r",
+									"    pm.expect(jsonData.meta.total).to.eql(7);\r",
+									"    pm.expect(jsonData.data[0].company_id).to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/?offset=-1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "-1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompaniesWithStrQueryOffset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail[0].msg).to.eql(\"value is not a valid integer\"); \r",
+									"    pm.expect(jsonData.detail[0].type).to.eql(\"type_error.integer\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[0]).to.eql(\"query\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[1]).to.eql(\"offset\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"detail\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"loc\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": [\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                },\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                }\r",
+									"              ]\r",
+									"            },\r",
+									"            \"msg\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"type\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"loc\",\r",
+									"            \"msg\",\r",
+									"            \"type\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"detail\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/?offset=ABC",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "ABC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompanyById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.company_id).to.eql(1); \r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response when correct Accept-languege\", function() {\r",
+									"    pm.expect(pm.response.json()).to.have.any.keys(\"description\", \"description_lang\")\r",
+									"});\r",
+									"\r",
+									"if(pm.response.json().description_lang){\r",
+									"    pm.test(\"description_lang === EN\", function() {\r",
+									"        pm.expect(pm.response.json().description_lang[0].translation_lang).to.eql(\"EN\")}\r",
+									"    )};\r",
+									"\r",
+									"\r",
+									"    let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"company_id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"company_name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"company_address\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"company_status\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [ \"ACTIVE\", \"CLOSED\", \"BANKRUPT\" ]\r",
+									"    },\r",
+									"    \"description_lang\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"translation_lang\": {\r",
+									"              \"type\": \"string\",\r",
+									"              \"enum\": [ \"EN\", \"RU\", \"PL\", \"UA\" ]\r",
+									"            },\r",
+									"            \"translation\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"translation_lang\",\r",
+									"            \"translation\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"company_id\",\r",
+									"    \"company_name\",\r",
+									"    \"company_address\",\r",
+									"    \"company_status\",\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompanyByNonexId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail.reason).to.include(\"Company with requested id\"); \r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompanyByIdLangRU",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.company_id).to.eql(1); \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"tests[\"descrTest\"] = responseBody.has('description') ;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response when correct Accept-languege\", function() {\r",
+									"    pm.expect(pm.response.json()).to.have.any.keys(\"description\", \"description_lang\")\r",
+									"});\r",
+									"\r",
+									"if(pm.response.json().description_lang){\r",
+									"    pm.test(\"description_lang === EN\", function() {\r",
+									"        pm.expect(pm.response.json().description_lang[0].translation_lang).to.eql(\"EN\")}\r",
+									"    )};\r",
+									"\r",
+									"\r",
+									"    let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"company_id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"company_name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"company_address\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"company_status\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [ \"ACTIVE\", \"CLOSED\", \"BANKRUPT\" ]\r",
+									"    },\r",
+									"    \"description_lang\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"translation_lang\": {\r",
+									"              \"type\": \"string\",\r",
+									"              \"enum\": [ \"EN\", \"RU\", \"PL\", \"UA\" ]\r",
+									"            },\r",
+									"            \"translation\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"translation_lang\",\r",
+									"            \"translation\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"company_id\",\r",
+									"    \"company_name\",\r",
+									"    \"company_address\",\r",
+									"    \"company_status\",\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "RU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompanyByIdInvLang",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.company_id).to.eql(1); \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"tests[\"descrlangTest\"] = responseBody.has('description_lang') ;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response when correct Accept-languege\", function() {\r",
+									"    pm.expect(pm.response.json()).to.have.any.keys(\"description\", \"description_lang\")\r",
+									"});\r",
+									"\r",
+									"if(pm.response.json().description_lang){\r",
+									"    pm.test(\"description_lang === EN\", function() {\r",
+									"        pm.expect(pm.response.json().description_lang[0].translation_lang).to.eql(\"EN\")}\r",
+									"    )};\r",
+									"\r",
+									"   let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"company_id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"company_name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"company_address\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"company_status\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [ \"ACTIVE\", \"CLOSED\", \"BANKRUPT\" ]\r",
+									"    },\r",
+									"    \"description_lang\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"translation_lang\": {\r",
+									"              \"type\": \"string\",\r",
+									"              \"enum\": [ \"EN\", \"RU\", \"PL\", \"UA\" ]\r",
+									"            },\r",
+									"            \"translation\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"translation_lang\",\r",
+									"            \"translation\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"company_id\",\r",
+									"    \"company_name\",\r",
+									"    \"company_address\",\r",
+									"    \"company_status\",\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "AM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "UsersWithLimit&Offset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Total companies\", function () {\r",
+									"pm.expect(Object.keys(pm.response.json().data).length).to.eql(pm.response.json().meta.limit)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    //приводим тело ответа к формату JSON\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.length).to.eql(10);\r",
+									"    pm.expect(jsonData.meta.limit).to.eql(10);\r",
+									"    pm.expect(jsonData.meta.offset).to.eql(5);\r",
+									"    pm.expect(jsonData.data[0].user_id).to.eql(12);\r",
+									"});\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"meta\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"limit\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"offset\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"total\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"total\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"data\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"first_name\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"last_name\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"company_id\": {\r",
+									"              \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"user_id\": {\r",
+									"              \"type\": \"integer\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"\r",
+									"            \"last_name\",\r",
+									"            \"user_id\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"meta\",\r",
+									"    \"data\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/users/?limit=10&offset=5",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UsersWithInvQueryLimit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Total companies\", function () {\r",
+									"pm.expect(Object.keys(pm.response.json().data).length).to.eql(pm.response.json().meta.total)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.meta.limit).to.eql(-1);\r",
+									"    pm.expect(jsonData.meta.offset).to.eql(0);\r",
+									"});\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"detail\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"loc\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": [\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                },\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                }\r",
+									"              ]\r",
+									"            },\r",
+									"            \"msg\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"type\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"loc\",\r",
+									"            \"msg\",\r",
+									"            \"type\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"detail\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/users/?limit=-1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "-1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UsersWithStrLimit&Offset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail[0].msg).to.eql(\"value is not a valid integer\"); \r",
+									"    pm.expect(jsonData.detail[0].type).to.eql(\"type_error.integer\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[0]).to.eql(\"query\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[1]).to.eql(\"limit\");\r",
+									"    pm.expect(jsonData.detail.length).to.eql(2);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"detail\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"loc\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": [\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                },\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                }\r",
+									"              ]\r",
+									"            },\r",
+									"            \"msg\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"type\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"loc\",\r",
+									"            \"msg\",\r",
+									"            \"type\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"detail\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/users/?limit=abc&offset=abc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "abc"
+								},
+								{
+									"key": "offset",
+									"value": "abc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UsersEnableSSL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 301\", function () {\r",
+									"    pm.response.to.have.status(301);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    //var jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.eql(\"https://send-request.me/api/users/\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request by http\", function() {\r",
+									"pm.expect(pm.request.url.protocol).to.eql(\"http\")\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"strictSSL": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL_not_tls}}/api/users/",
+							"host": [
+								"{{baseURL_not_tls}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserCreated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.first_name).to.eql(\"Kventin\");\r",
+									"    pm.expect(jsonData.last_name).to.eql(\"Tarantino\");\r",
+									"    pm.expect(jsonData.company_id).to.eql(3);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.set(\"user_id\", pm.response.json().user_id);\r",
+									"pm.collectionVariables.set(\"first_name\", pm.response.json().first_name);\r",
+									"pm.collectionVariables.set(\"last_name\", pm.response.json().last_name);\r",
+									"pm.collectionVariables.set(\"company_id\", pm.response.json().company_id);\r",
+									"\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"first_name\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [\"Kventin\"]\r",
+									"    },\r",
+									"    \"last_name\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [\"Tarantino\"]\r",
+									"    },\r",
+									"    \"company_id\": {\r",
+									"      \"type\": \"integer\",\r",
+									"      \"enum\": [ 3 ]\r",
+									"    },\r",
+									"    \"user_id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"last_name\",\r",
+									"    \"user_id\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"postman.setNextRequest(\"IssuesGetUserById\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"Kventin\",\r\n  \"last_name\": \"Tarantino\",\r\n  \"company_id\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserCreatedIdNotExist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail.reason).to.include(\"Company with requested id\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"Kventin\",\r\n  \"last_name\": \"Tarantino\",\r\n  \"company_id\": 1234\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserCreatedValueNull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail[0].msg).to.eql(\"none is not an allowed value\"); \r",
+									"    pm.expect(jsonData.detail[0].type).to.eql(\"type_error.none.not_allowed\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[0]).to.eql(\"body\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[1]).to.eql(\"last_name\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"detail\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"loc\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": [\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                },\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                }\r",
+									"              ]\r",
+									"            },\r",
+									"            \"msg\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"type\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"loc\",\r",
+									"            \"msg\",\r",
+									"            \"type\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"detail\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"Kventin\",\r\n  \"last_name\": null,\r\n  \"company_id\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserCreatedStatusClosed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail.reason).to.include(\"ecause it is not active\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"Kventin\",\r\n  \"last_name\": \"Tarantino\",\r\n  \"company_id\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserCreatedParamNotExist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail[0].msg).to.eql(\"field required\"); \r",
+									"    pm.expect(jsonData.detail[0].type).to.eql(\"value_error.missing\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[0]).to.eql(\"body\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[1]).to.eql(\"last_name\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"detail\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"loc\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": [\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                },\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                }\r",
+									"              ]\r",
+									"            },\r",
+									"            \"msg\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"type\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"loc\",\r",
+									"            \"msg\",\r",
+									"            \"type\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"detail\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"Kventin\",\r\n  \"company_id\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCreatedUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"let first_name = pm.collectionVariables.get(\"first_name\"); \r",
+									"let last_name = pm.collectionVariables.get(\"last_name\"); \r",
+									"let company_id = pm.collectionVariables.get(\"company_id\"); \r",
+									"let user_id = pm.collectionVariables.get(\"user_id\"); \r",
+									"\r",
+									"\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"first_name\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [  first_name ]\r",
+									"    },\r",
+									"    \"last_name\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [  last_name ]\r",
+									"    },\r",
+									"    \"company_id\": {\r",
+									"      \"type\": \"integer\",\r",
+									"      \"enum\": [  company_id ]\r",
+									"    },\r",
+									"    \"user_id\": {\r",
+									"      \"type\": \"integer\",\r",
+									"      \"enum\": [  user_id ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"last_name\",\r",
+									"    \"user_id\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/users/{{user_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetNotCreatedUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body and header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail.reason).to.include(\"User with requested id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/users/1234",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1234"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserUpdate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"let first_name = pm.collectionVariables.get(\"first_name\"); \r",
+									"let last_name = pm.collectionVariables.get(\"last_name\"); \r",
+									"let company_id = pm.collectionVariables.get(\"company_id\"); \r",
+									"let user_id = pm.collectionVariables.get(\"user_id\"); \r",
+									"\r",
+									"\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"first_name\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [  first_name ]\r",
+									"    },\r",
+									"    \"last_name\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [  last_name ]\r",
+									"    },\r",
+									"    \"company_id\": {\r",
+									"      \"type\": \"integer\",\r",
+									"      \"enum\": [  company_id ]\r",
+									"    },\r",
+									"    \"user_id\": {\r",
+									"      \"type\": \"integer\",\r",
+									"      \"enum\": [  user_id ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"last_name\",\r",
+									"    \"user_id\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"first_name\", \"reKventin\"); \r",
+									"pm.collectionVariables.set(\"last_name\", \"reTarantino\"); \r",
+									"pm.collectionVariables.set(\"company_id\", 2); \r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"{{first_name}}\",\r\n  \"last_name\": \"{{last_name}}\",\r\n  \"company_id\": \"{{company_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/{{user_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserUpdateNotExistCompany",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail.reason).to.include(\"Company with requested id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"{{first_name}}\",\r\n  \"last_name\": \"{{last_name}}\",\r\n  \"company_id\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/{{user_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserNotExistUpdate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body and header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail.reason).to.include(\"User with requested id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"{{first_name}}\",\r\n  \"last_name\": \"{{last_name}}\",\r\n  \"company_id\": \"{{company_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/273011",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"273011"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCreatedUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 202\", function () {\r",
+									"    pm.response.to.have.status(202);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body !== null\", function(){\r",
+									"    pm.expect(pm.response.json()).to.not.include([null]);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/users/{{user_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteNotCreatedUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail.reason).to.include(\"User with requested id\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/users/{{user_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "issues",
+			"item": [
+				{
+					"name": "IssuesCompanyesWithQuery",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Total companies\", function () {\r",
+									"pm.expect(Object.keys(pm.response.json().data).length).to.eql(pm.response.json().meta.limit)\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.meta.limit).to.eql(1);\r",
+									"    pm.expect(jsonData.meta.offset).to.eql(1);\r",
+									"    pm.expect(jsonData.data[0].company_status).to.eql(\"ACTIVE\");\r",
+									"    pm.expect(jsonData.data[0].company_id).to.eql(2);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"data\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"company_id\": {\r",
+									"              \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"company_name\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"company_address\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"company_status\": {\r",
+									"              \"type\": \"string\",\r",
+									"              \"enum\": [ \"ACTIVE\"]\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"company_id\",\r",
+									"            \"company_name\",\r",
+									"            \"company_address\",\r",
+									"            \"company_status\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    },\r",
+									"    \"meta\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"limit\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"offset\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"total\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"total\"\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"data\",\r",
+									"    \"meta\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/issues/companies?limit=1&offset=1&status=ACTIVE",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"issues",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "offset",
+									"value": "1"
+								},
+								{
+									"key": "status",
+									"value": "ACTIVE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IssuesCompanyByID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.company_id).to.eql(1); \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"tests[\"descrlangTest\"] = responseBody.has('description_lang') ;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response when correct Accept-languege\", function() {\r",
+									"    pm.expect(pm.response.json()).to.have.any.keys(\"description\", \"description_lang\")\r",
+									"});\r",
+									"\r",
+									"if(pm.response.json().description_lang){\r",
+									"    pm.test(\"description_lang === EN\", function() {\r",
+									"        pm.expect(pm.response.json().description_lang[0].translation_lang).to.eql(\"EN\")}\r",
+									"    )};\r",
+									"\r",
+									"\r",
+									"    let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"company_id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"company_name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"company_address\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"company_status\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [ \"ACTIVE\", \"CLOSED\", \"BANKRUPT\" ]\r",
+									"    },\r",
+									"    \"description_lang\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"translation_lang\": {\r",
+									"              \"type\": \"string\",\r",
+									"              \"enum\": [ \"EN\", \"RU\", \"PL\", \"UA\" ]\r",
+									"            },\r",
+									"            \"translation\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"translation_lang\",\r",
+									"            \"translation\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"company_id\",\r",
+									"    \"company_name\",\r",
+									"    \"company_address\",\r",
+									"    \"company_status\",\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"postman.setNextRequest(\"IssuesUserCreated\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/issues/companies/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"issues",
+								"companies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IssuesGetUserById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"let first_name = pm.collectionVariables.get(\"first_name\"); \r",
+									"let last_name = pm.collectionVariables.get(\"last_name\"); \r",
+									"let company_id = pm.collectionVariables.get(\"company_id\"); \r",
+									"let user_id = pm.collectionVariables.get(\"user_id\"); \r",
+									"\r",
+									"\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"first_name\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [  first_name ]\r",
+									"    },\r",
+									"    \"last_name\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [  last_name ]\r",
+									"    },\r",
+									"    \"company_id\": {\r",
+									"      \"type\": \"integer\",\r",
+									"      \"enum\": [  company_id ]\r",
+									"    },\r",
+									"    \"user_id\": {\r",
+									"      \"type\": \"integer\",\r",
+									"      \"enum\": [  user_id ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"last_name\",\r",
+									"    \"user_id\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"postman.setNextRequest(\"UserCreatedIdNotExist\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/issues/users/{{user_id}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"issues",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IssuesUserCreated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"let first_name = pm.collectionVariables.get(\"first_name\"); \r",
+									"let last_name = pm.collectionVariables.get(\"last_name\"); \r",
+									"let company_id = pm.collectionVariables.get(\"company_id\"); \r",
+									"\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"first_name\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [  first_name ]\r",
+									"    },\r",
+									"    \"last_name\": {\r",
+									"      \"type\": \"string\",\r",
+									"      \"enum\": [  last_name ]\r",
+									"    },\r",
+									"    \"company_id\": {\r",
+									"      \"type\": \"integer\",\r",
+									"      \"enum\": [  company_id ]\r",
+									"    },\r",
+									"    \"user_id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"last_name\",\r",
+									"    \"user_id\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.collectionVariables.clear();"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"first_name\", \"re1Kventin\"); \r",
+									"pm.collectionVariables.set(\"last_name\", \"re1Tarantino\"); \r",
+									"pm.collectionVariables.set(\"company_id\", 2); \r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"{{first_name}}\",\r\n  \"last_name\": \"{{last_name}}\",\r\n  \"company_id\": \"{{company_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/issues/users",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"issues",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "My_tests",
+			"item": [
+				{
+					"name": "CompaniesWithInvQueryLimitFloat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail[0].msg).to.eql(\"value is not a valid integer\"); \r",
+									"    pm.expect(jsonData.detail[0].type).to.eql(\"type_error.integer\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[0]).to.eql(\"query\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[1]).to.eql(\"limit\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"detail\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"loc\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": [\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                },\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                }\r",
+									"              ]\r",
+									"            },\r",
+									"            \"msg\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"type\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"loc\",\r",
+									"            \"msg\",\r",
+									"            \"type\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"detail\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/?limit=1.0",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompaniesWithInvQueryOffsetFloat",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail[0].msg).to.eql(\"value is not a valid integer\"); \r",
+									"    pm.expect(jsonData.detail[0].type).to.eql(\"type_error.integer\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[0]).to.eql(\"query\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[1]).to.eql(\"offset\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"detail\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"loc\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": [\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                },\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                }\r",
+									"              ]\r",
+									"            },\r",
+									"            \"msg\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"type\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"loc\",\r",
+									"            \"msg\",\r",
+									"            \"type\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"detail\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/?offset=1.0",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "1.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckResourse",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"    pm.expect(pm.response.headers.get(\"allow\")).to.eql(\"GET\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompaniesWithInvQueryStatusRegistr",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail[0].ctx.enum_values[0]).to.eql(\"ACTIVE\"); \r",
+									"    pm.expect(jsonData.detail[0].ctx.enum_values[1]).to.eql(\"BANKRUPT\"); \r",
+									"    pm.expect(jsonData.detail[0].ctx.enum_values[2]).to.eql(\"CLOSED\"); \r",
+									"    pm.expect(jsonData.detail[0].msg).to.eql(\"value is not a valid enumeration member; permitted: 'ACTIVE', 'BANKRUPT', 'CLOSED'\"); \r",
+									"    pm.expect(jsonData.detail[0].type).to.eql(\"type_error.enum\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[0]).to.eql(\"query\"); \r",
+									"    pm.expect(jsonData.detail[0].loc[1]).to.eql(\"status\");\r",
+									"\r",
+									"});\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"detail\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"loc\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": [\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                },\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                }\r",
+									"              ]\r",
+									"            },\r",
+									"            \"msg\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"type\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"loc\",\r",
+									"            \"msg\",\r",
+									"            \"type\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"detail\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/companies/?status=ACTIVe",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								""
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ACTIVe"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserCreatedStatusBankrupt",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Test body\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail.reason).to.include(\"ecause it is not active\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"Kventin\",\r\n  \"last_name\": \"Tarantino\",\r\n  \"company_id\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserCreatedBodyText",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test header\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json\");\r",
+									"    pm.expect(pm.response.headers.get(\"Connection\")).to.eql(\"keep-alive\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"let schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"detail\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"loc\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": [\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                },\r",
+									"                {\r",
+									"                  \"type\": [\"string\", \"integer\"]\r",
+									"                }\r",
+									"              ]\r",
+									"            },\r",
+									"            \"msg\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"type\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"loc\",\r",
+									"            \"msg\",\r",
+									"            \"type\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"detail\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"Kventin\",\r\n  \"last_name\": \"Tarantino\",\r\n  \"company_id\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "user_id",
+			"value": ""
+		},
+		{
+			"key": "first_name",
+			"value": ""
+		},
+		{
+			"key": "last_name",
+			"value": ""
+		},
+		{
+			"key": "company_id",
+			"value": ""
+		}
+	]
+}
