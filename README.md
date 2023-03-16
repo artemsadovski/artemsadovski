@@ -38,7 +38,7 @@
 
 -  [Postman Collections](https://github.com/artemsadovski/artemsadovski/blob/artemsadovski-api-test/api_test)
 -  [Postman Enviroment](https://github.com/artemsadovski/artemsadovski/blob/artemsadovski-api-var-test/var_api)
--  [SQL](cv-link)
+
 
 
 ---
