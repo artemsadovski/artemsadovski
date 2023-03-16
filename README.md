@@ -37,7 +37,7 @@
 ### &#128221; Примеры:
 
 -  [Postman Collections](https://github.com/artemsadovski/artemsadovski/blob/artemsadovski-api-test/api_test)
--  [Postman Enviroment](https://github.com/artemsadovski/artemsadovski/blob/artemsadovski-api-test/api_test)
+-  [Postman Enviroment](https://github.com/artemsadovski/artemsadovski/blob/artemsadovski-var-test/api_test)
 -  [SQL](cv-link)
 
 
